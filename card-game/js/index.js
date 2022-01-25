@@ -19,6 +19,9 @@ const lowerButton = document.querySelector('#lower');
 const equalButton = document.querySelector('#equal');
 const higherButton = document.querySelector('#higher');
 const scoreElem = document.querySelector('.score');
+const attemptsElem = document.querySelector('.attempts');
+const cardCountElem = document.querySelector('.left');
+const gameOverElem = document.querySelector('#gameover');
 
 let attempts = 3;
 let activeCard = {};
@@ -78,6 +81,8 @@ function pickCard() {
 
     //Sätt aktivt kort för jämförelse
     activeCard = pickedCard[0];
+    
+    updateCardCount();
 
     return pickedCard[0];
 }
@@ -115,20 +120,84 @@ function lower() {
             //Ifall användaren gissade rätt
             updateScore();
         } else {
-
+            //Ifall användaren gissade fel
+            updateAttempts();
         }
+    } else {
+        gameOverElem.classList.add('show');
     }
 }
 
 function equal() {
+    if (deck.length > 0 && attempts > 0) {
+        /** Spellogik
+         * Spara nuvarande slumpade korts värde
+         * Välj lägre, lika med eller högre
+         * Slumpa ett nytt kort och visa i gränssnittet
+         * Spara det nya slumpade kortets värde
+         * Jämför det nya slumpade kortets värde med förgående kortets värde
+         */
+        previousCard = activeCard;
 
+        picked = pickCard();
+        showCard(picked);
+        console.log('Tidigare kort: ', previousCard);
+        console.log('Nuvarande kort: ', activeCard);
+
+        if (activeCard.value == previousCard.value) {
+            //Ifall användaren gissade rätt
+            updateScore();
+        } else {
+            //Ifall användaren gissade fel
+            updateAttempts();
+        }
+    } else {
+        gameOverElem.classList.add('show');
+    }
 }
 
 function higher() {
+    if (deck.length > 0 && attempts > 0) {
+        /** Spellogik
+         * Spara nuvarande slumpade korts värde
+         * Välj lägre, lika med eller högre
+         * Slumpa ett nytt kort och visa i gränssnittet
+         * Spara det nya slumpade kortets värde
+         * Jämför det nya slumpade kortets värde med förgående kortets värde
+         */
+        previousCard = activeCard;
 
+        picked = pickCard();
+        showCard(picked);
+        console.log('Tidigare kort: ', previousCard);
+        console.log('Nuvarande kort: ', activeCard);
+
+        if (activeCard.value > previousCard.value) {
+            //Ifall användaren gissade rätt
+            updateScore();
+        } else {
+            //Ifall användaren gissade fel
+            updateAttempts();
+        }
+    } else {
+        gameOverElem.classList.add('show');
+    }
 }
 
 function updateScore() {
     score = score + 100;
     scoreElem.innerHTML = score;
+}
+
+function updateAttempts() {
+    attempts--;
+    attemptsElem.innerHTML = attempts;
+
+    if (attempts == 0) {
+        gameOverElem.classList.add('show');
+    }
+}
+
+function updateCardCount() {
+    cardCountElem.innerHTML = `${deck.length} kort kvar`
 }
