@@ -15,10 +15,25 @@ Spelet är slut när kortleken är slut, eller man gissat fel 3 ggr.
 8. Avgöra när spelet är slut
 */
 
+const lowerButton = document.querySelector('#lower');
+const equalButton = document.querySelector('#equal');
+const higherButton = document.querySelector('#higher');
+const scoreElem = document.querySelector('.score');
+
+let attempts = 3;
+let activeCard = {};
+let previousCard = {};
+let score = 0;
+
 let deck = createDeck();
 console.table(deck);
 let picked = pickCard();
+console.log('Valt kort: ', picked);
 showCard(picked);
+
+lowerButton.addEventListener('click', lower);
+equalButton.addEventListener('click', equal);
+higherButton.addEventListener('click', higher);
 
 function createDeck() {
     let deck = [];
@@ -60,7 +75,9 @@ function createDeck() {
 function pickCard() {
     const randomPosition = Math.floor(Math.random() * deck.length);
     const pickedCard = deck.splice(randomPosition, 1); //Ta bort kortet från arrayen och returnerade det borttagna kortet
-    console.log('Valt kort:', pickedCard[0]);
+
+    //Sätt aktivt kort för jämförelse
+    activeCard = pickedCard[0];
 
     return pickedCard[0];
 }
@@ -76,4 +93,42 @@ function showCard(card) {
         </section>
         <section class="back"></section>
         `;
+}
+
+function lower() {
+    if (deck.length > 0 && attempts > 0) {
+        /** Spellogik
+         * Spara nuvarande slumpade korts värde
+         * Välj lägre, lika med eller högre
+         * Slumpa ett nytt kort och visa i gränssnittet
+         * Spara det nya slumpade kortets värde
+         * Jämför det nya slumpade kortets värde med förgående kortets värde
+         */
+        previousCard = activeCard;
+
+        picked = pickCard();
+        showCard(picked);
+        console.log('Tidigare kort: ', previousCard);
+        console.log('Nuvarande kort: ', activeCard);
+
+        if (activeCard.value < previousCard.value) {
+            //Ifall användaren gissade rätt
+            updateScore();
+        } else {
+
+        }
+    }
+}
+
+function equal() {
+
+}
+
+function higher() {
+
+}
+
+function updateScore() {
+    score = score + 100;
+    scoreElem.innerHTML = score;
 }
