@@ -52,20 +52,15 @@ function compareCards() {
         console.log('nu jämför vi');
 
         if(flippedCards[0] == flippedCards[2]) {
-            console.log('det är ett par')
             foundPairs.push(flippedCards[0], flippedCards[2]);
-            console.log(foundPairs);
             flippedCards = [];
-            console.log(flippedCards);
         }
         else {
             setTimeout(function() { flipCard([flippedCards[1], flippedCards[3]]), flippedCards = [];}, 1500);
-            console.log('inget par', flippedCards)
             
         }
     }
 }
-
 
 
 function howManyPairs() {
