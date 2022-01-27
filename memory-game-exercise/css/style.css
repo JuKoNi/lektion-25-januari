@@ -9,6 +9,12 @@ body {
     display: flex;
 }
 
+img {
+    width: 210px;
+    height: 210px;
+    object-fit: cover;
+}
+
 .memory-cards {
     max-width: 1000px;
     display: flex;
@@ -30,7 +36,7 @@ body {
     position: relative;
     transition: transform 0.8s;
     transform-style: preserve-3d;
-    margin: 0.5rem;
+    margin: .7rem;
 }
 
 .front, .back {
