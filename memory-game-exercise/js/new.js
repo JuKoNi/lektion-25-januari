@@ -11,6 +11,7 @@
  * knapp: X - stäng overlay
  */
 
+ const allCards = document.querySelector('.memory-cards')
  const cardElem = document.querySelectorAll('.memory-card');
  const backCardElem = document.querySelectorAll('.back');
  const frontCardElem = document.querySelectorAll('.front')
@@ -24,7 +25,10 @@
     winElem.classList.remove('show')
 })
 
- 
+// for (let i = allCards.children.length; i >= 0; i--) {
+//     allCards.appendChild(allCards.children[Math.random() * i | 0]);
+// }
+
 
  function flipCard(flip) {
     for(let i = 0; i < flip.length; i++) {
@@ -72,5 +76,6 @@ function howManyPairs() {
          howManyPairs();
      })
  }
+
 
 
